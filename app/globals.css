@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; overflow-x: clip; max-width: 100%; }
+body { background: #fff; color: #0f1f2e; overflow-x: clip; max-width: 100%; overscroll-behavior-y: none; -webkit-text-size-adjust: 100%; }
+/* grid children may shrink: stops scroll rows from stretching the page on phones */
+.grid > * { min-width: 0; }
+.grid:not([class*="grid-cols"]) { grid-template-columns: minmax(0, 1fr); }
+img { max-width: 100%; }
+a, button { touch-action: manipulation; }
+section[id] { scroll-margin-top: 90px; }
+
+@layer components {
+  .container-x { @apply mx-auto w-full max-w-[1480px] px-4 sm:px-6 lg:px-10; }
+  .eyebrow { @apply mb-1.5 flex items-center gap-2 text-[10px] font-bold uppercase tracking-wide text-ink; }
+  .eyebrow::before { content: ""; @apply h-[5px] w-5 rounded-sm bg-brand-accent; }
+  .h2 { @apply text-[22px] font-extrabold leading-tight text-ink sm:text-[28px]; }
+  .btn { @apply inline-flex items-center justify-center gap-2 rounded-md px-5 py-2.5 text-[13px] font-semibold transition active:scale-95; }
+  .btn-primary { @apply btn bg-brand text-white shadow-soft hover:bg-brand-dark; }
+  .btn-outline { @apply btn border border-brand text-brand hover:bg-brand-light; }
+  .card { @apply rounded-xl bg-white shadow-card; }
+  .scroll-row { @apply flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 lg:grid lg:snap-none lg:overflow-visible; scrollbar-width: none; -webkit-overflow-scrolling: touch; overscroll-behavior-x: contain; }
+  .scroll-row::-webkit-scrollbar { display: none; }
+}
+
+.pb-safe { padding-bottom: env(safe-area-inset-bottom, 0px); }
+.pt-safe { padding-top: env(safe-area-inset-top, 0px); }
+
+@keyframes rise { from { opacity: 0; transform: translateY(14px);} to { opacity: 1; transform: none;} }
+.hero-rise { animation: rise .7s ease-out both; }
+@media (prefers-reduced-motion: reduce) { .hero-rise { animation: none; } html { scroll-behavior: auto; } }
+:focus-visible { outline: 2px solid #12803f; outline-offset: 2px; }
+
+/* Scale the whole layout up on large monitors so it fills the screen like the design */
+@media (min-width: 1700px) { html { zoom: 1.15; } }
+@media (min-width: 1900px) { html { zoom: 1.28; } }
+@media (min-width: 2400px) { html { zoom: 1.6; } }
